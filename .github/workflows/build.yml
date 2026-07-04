@@ -1,0 +1,22 @@
+name: Build EXE
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: windows-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Install Rust
+      uses: dtolnay/rust-toolchain@stable
+    
+    - name: Build
+      run: cargo build --release
+    
+    - name: Upload EXE
+      uses: actions/upload-artifact@v4
+      with:
+        name: rust-esp-exe
+        path: target/release/rust-esp.exe
